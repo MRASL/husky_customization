@@ -1,0 +1,12 @@
+<launch>
+  <node pkg="sicktoolbox_wrapper2" name="lms5xx" type="sicklms_5xx" ns="lidar">
+    <param name="ip_add" value="192.168.1.14" />
+    <param name="frame_id" value="laser" />
+    <param name="angle" value="10" />
+  </node>
+  
+  <!--
+  <node pkg="tf" type="static_transform_publisher" name="laser_broadcaster" args="0.32 0.0 0.065 0 0 0 top_plate_link laser 10" />
+  -->
+  
+</launch>

@@ -31,27 +31,92 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 
   <xacro:include filename="$(find husky_description)/urdf/husky.urdf.xacro" />
   <xacro:husky_robot />
+  
+  <xacro:include filename="$(find husky_custom_description)/urdf/bumblebee.urdf" />
+  
+  <xacro:include filename="$(find husky_custom_description)/urdf/lms511.urdf" />
 
-  <!-- Insert customization below, sample provided: -->
+  <!-- Insert Customizations Below -->
 
-  <link name="bowler_link">
+  <link name="axis_mesh">
     <visual>
       <geometry>
-        <mesh filename="package://husky_custom_description/meshes/red_bowler.dae" />
+        <mesh filename="package://husky_custom_description/meshes/axis_ptz.dae"/>
       </geometry>
     </visual>
-    <collision>
-      <origin xyz="0 0 0.07" rpy="0 0 0" />
-      <geometry>
-        <box size="0.32 0.25 0.14" rpy="0 0 0"/>
-      </geometry>
-    </collision>
   </link>
 
-  <joint name="bowler_joint" type="fixed">
-    <parent link="top_plate_link" />
-    <child link="bowler_link" />
-    <origin xyz="0.1 -0.1 0" rpy="0 0 0.5" />
+  <joint name="top_plate_to_axis_mesh" type="fixed">
+      <parent link="top_plate_link"/>
+      <child link="axis_mesh"/>
+      <origin xyz="-0.31 0.205 0.47" rpy="3.141592 0 1.57079633" />
   </joint>
+
+  <link name="bumblebee_mesh">
+    <visual>
+      <geometry>
+        <mesh filename="package://husky_custom_description/meshes/bb2_on_tilt_mount.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="top_plate_to_bumblebee_mesh" type="fixed">
+      <parent link="top_plate_link"/>
+      <child link="bumblebee_mesh"/>
+      <origin xyz="-0.31 0.0 0.37" rpy="0 0 1.57079633" />
+  </joint>
+
+  <link name="smart6_mesh">
+    <visual>
+      <geometry>
+        <mesh filename="package://husky_custom_description/meshes/smart6.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="top_plate_to_smart6_mesh" type="fixed">
+      <parent link="top_plate_link"/>
+      <child link="smart6_mesh"/>
+      <origin xyz="-0.31 -0.265 0.51" rpy="0 0 3.141592" />
+  </joint>
+
+  <link name="arch_mesh">
+    <visual>
+      <geometry>
+        <mesh filename="package://husky_custom_description/meshes/plm_arch.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="top_plate_to_arch_mesh" type="fixed">
+      <parent link="top_plate_link"/>
+      <child link="arch_mesh"/>
+      <origin xyz="-0.310 0 0.0" rpy="0 0 1.57079633" />
+  </joint>
+  
+  <!--link name="lms511_mesh">
+    <visual>
+      <geometry>
+        <mesh filename="package://husky_custom_description/meshes/lms511.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="top_plate_to_lms511_mesh" type="fixed">
+      <parent link="top_plate_link"/>
+      <child link="lms511_mesh"/>
+      <origin xyz="0.320 0 0.065" rpy="0 0 0" />
+  </joint-->
+  
+  <!-- Include and invoke the macro which creates a Mico -->
+  <!--xacro:include filename="$(find husky_custom_description)/urdf/m1n6a200_standalone.xacro" /-->
+  <!--mico_arm parent="top_plate_link" /-->
+
+  <!-- Create a fixed joint to connect the Jaco to the rest of the robot -->
+  <!--joint name="top_plate_to_mico" type="fixed">
+    <parent link="top_plate_link"/>
+    <child link="root"/>
+    <origin xyz="0.21 -0.197 0.01" rpy="0 0 1.57079633" />
+  </joint-->
 
 </robot>
